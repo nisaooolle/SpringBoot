@@ -15,17 +15,16 @@ public class BarangServicelmpl implements BarangService {
 
     @Override
     public Barang addBarang(Barang barang) {
+        try {
         return barangRepository.save(barang);
+        }catch (Exception e){
+            throw new InternalErorException("Data harus diisi semua");
+        }
     }
 
     @Override
     public Object getBarangById(Long id) {
-        var barang = barangRepository.findById(id).orElseThrow(() -> new NotFoundException("Id tidak ditemukan"));
-        try {
-        return barangRepository.findById(id);
-        }catch (Exception e) {
-            throw new InternalErorException("Kesalahan memunculkan data");
-        }
+        return barangRepository.findById(id).orElseThrow(() -> new NotFoundException("Id tidak ditemukan"));
     }
 
     @Override
